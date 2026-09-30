@@ -10,11 +10,11 @@ gsap.registerPlugin(ScrollTrigger);
 const canvas = document.getElementById('webgl-canvas');
 const W = window.innerWidth, H = window.innerHeight;
 const scene = new THREE.Scene();
-const isMobile = W <= 768;
+const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
 // Camera setup
 const camera = new THREE.PerspectiveCamera(40, W / H, 0.1, 60);
-camera.position.set(0, 0.5, isMobile ? 13 : 8); // Start much further back on mobile so character fits
+camera.position.set(0, 0.5, isMobile ? 12 : 8); // Pull back on mobile so character fits perfectly
 
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));

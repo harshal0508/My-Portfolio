@@ -300,11 +300,13 @@ main { position: relative; z-index: 10; }
   .hero-watermark {
     writing-mode: horizontal-tb;
     left: 50%;
-    top: 10vh;
+    top: 5vh;
     transform: translateX(-50%);
-    font-size: clamp(2.5rem, 12vw, 4rem);
-    opacity: 0.6;
-    letter-spacing: 0.2em;
+    width: 100vw;
+    text-align: center;
+    font-size: 11.5vw; /* Perfectly fits "HARSHAL JAIN" across phone */
+    opacity: 0.15; /* Make it a subtle background texture */
+    letter-spacing: 0.05em;
   }
 
   /* Move side menu slightly closer to edge */

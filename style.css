@@ -282,12 +282,8 @@ main { position: relative; z-index: 10; }
   .hero-content {
     text-align: center;
     max-width: 90vw;
-    background: rgba(92, 102, 85, 0.4);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
     padding: 20px;
-    border-radius: 15px;
-    margin-bottom: 5vh;
+    margin-bottom: 2vh;
   }
   .hero-title {
     font-size: clamp(2.5rem, 12vw, 4rem);
@@ -296,22 +292,14 @@ main { position: relative; z-index: 10; }
     font-size: 0.95rem;
   }
   
-  /* Make watermark horizontal and at the top on small screens */
+  /* Completely hide watermark on mobile for ultra-clean look */
   .hero-watermark {
-    writing-mode: horizontal-tb;
-    left: 50%;
-    top: 5vh;
-    transform: translateX(-50%);
-    width: 100vw;
-    text-align: center;
-    font-size: 11.5vw; /* Perfectly fits "HARSHAL JAIN" across phone */
-    opacity: 0.15; /* Make it a subtle background texture */
-    letter-spacing: 0.05em;
+    display: none;
   }
 
   /* Move side menu slightly closer to edge */
   #stickers-container {
-    left: 10vw;
+    left: 8vw;
   }
 
   /* Shrink Project Cards so they fit horizontally */

@@ -88,10 +88,17 @@ loader.load('./model_assets/source/model.glb', (gltf) => {
 
 }, (xhr) => {
   // Update percentage while loading
-  if (xhr.lengthComputable) {
-    const percent = Math.round((xhr.loaded / xhr.total) * 100);
-    const progressEl = document.getElementById('loader-progress');
-    if (progressEl) progressEl.innerText = percent + '%';
+  const progressEl = document.getElementById('loader-progress');
+  if (progressEl) {
+    if (xhr.lengthComputable) {
+      const percent = Math.round((xhr.loaded / xhr.total) * 100);
+      progressEl.innerText = percent + '%';
+    } else {
+      // Vercel compresses assets and strips Content-Length. Fallback estimate for 16MB file:
+      const estimatedTotal = 16309372;
+      const percent = Math.min(Math.round((xhr.loaded / estimatedTotal) * 100), 99); // Cap at 99 until done
+      progressEl.innerText = percent + '%';
+    }
   }
 }, (error) => {
   console.error("Error loading 3D model:", error);

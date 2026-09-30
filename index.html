@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Portfolio</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div id="cur"></div>
+  <div id="cur-ring"></div>
+
+  <!-- Loading Screen -->
+  <div id="loader">
+    <div class="loader-content">
+      <div id="loader-progress">0%</div>
+    </div>
+  </div>
+
+  <!-- Background Overlays -->
+  <div id="fabric-overlay"></div>
+  <div id="vignette"></div>
+
+  <!-- 3D Canvas -->
+  <div class="webgl-wrapper">
+    <canvas id="webgl-canvas"></canvas>
+  </div>
+    
+  <!-- Face Stickers -->
+  <div id="stickers-container">
+      <a href="https://github.com/harshal0508" target="_blank" class="sticker s-github" id="s1">
+        <svg width="48" height="48" viewBox="0 0 68 68" fill="none">
+          <rect width="68" height="68" rx="16" fill="white" stroke="#222" stroke-width="2.5"/>
+          <path transform="translate(15, 14) scale(1.6)" fill="#24292e" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+        </svg>
+        <span class="sticker-label">GitHub</span>
+      </a>
+      <a href="https://www.linkedin.com/in/harshal-jain-1a2a1a374" target="_blank" class="sticker s-linkedin" id="s4">
+        <svg width="48" height="48" viewBox="0 0 66 66" fill="none">
+          <rect width="66" height="66" rx="14" fill="#0077B5" stroke="white" stroke-width="3"/>
+          <text x="33" y="47" text-anchor="middle" font-size="36" font-weight="800" fill="white" font-family="Arial">in</text>
+        </svg>
+        <span class="sticker-label">LinkedIn</span>
+      </a>
+      <a href="https://leetcode.com/u/uVZOFtQmng/" target="_blank" class="sticker s-leetcode" id="s2">
+        <svg width="48" height="48" viewBox="0 0 68 68" fill="none">
+          <rect width="68" height="68" rx="14" fill="#FFA116" stroke="white" stroke-width="3"/>
+          <path transform="translate(15, 14) scale(1.6)" fill="white" d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125 1.516 5.25 5.25 0 0 0 1.525 2.21l4.346 3.626 8.453 7.052a1.333 1.333 0 0 0 1.613-.19l.524-.492a1.31 1.31 0 0 0 .39-1.22 1.33 1.33 0 0 0-.825-.94l-8.079-6.733-4.135-3.454a2.715 2.715 0 0 1-.823-1.127 2.76 2.76 0 0 1-.1-1.393 2.72 2.72 0 0 1 .632-1.303l3.682-3.935 4.966-5.322a1.36 1.36 0 0 0 .19-1.336 1.34 1.34 0 0 0-.825-.92L13.483 0zm-2.863 15.655l4.896 4.083a1.33 1.33 0 0 0 1.62-.18l4.475-4.2a1.345 1.345 0 0 0 .4-1.22 1.35 1.35 0 0 0-.825-.94l-4.475-3.73a1.35 1.35 0 0 0-1.62.18l-4.475 4.2a1.345 1.345 0 0 0-.4 1.22 1.35 1.35 0 0 0 .825.94l.417.347z"/>
+        </svg>
+        <span class="sticker-label">LeetCode</span>
+      </a>
+      <a href="https://github.com/harshal0508/Resume/tree/main" target="_blank" class="sticker s-resume" id="s6">
+        <svg width="48" height="48" viewBox="0 0 66 66" fill="none">
+          <rect width="66" height="66" rx="14" fill="white" stroke="#d4a574" stroke-width="2.5"/>
+          <rect x="18" y="15" width="30" height="36" rx="3" fill="#f5f0e8" stroke="#d4a574" stroke-width="1.5"/>
+          <line x1="26" y1="21" x2="40" y2="21" stroke="#c8a96e" stroke-width="2" stroke-linecap="round"/>
+          <line x1="26" y1="27" x2="40" y2="27" stroke="#e0d0b8" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="26" y1="33" x2="35" y2="33" stroke="#e0d0b8" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <span class="sticker-label">README.md</span>
+      </a>
+    </div>
+
+    <!-- Skills Modal -->
+    <div id="skills-modal">
+      <div class="skills-content">
+        <button class="close-skills" onclick="closeSkills()">✕</button>
+        <h2>My Arsenal</h2>
+        <div class="skills-grid">
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">React.js</span>
+          <span class="skill-tag">Node.js</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">C++</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">Three.js</span>
+          <span class="skill-tag">GSAP</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+  <!-- Scrollable Content -->
+  <main id="scroller">
+    
+    <section class="section hero" id="hero">
+      <div class="hero-watermark">HARSHAL JAIN</div>
+      <div class="hero-content">
+        <h1 class="hero-title">Welcome to<br>my world.</h1>
+        <p class="hero-bio">
+          I'm <strong>Harshal Jain</strong>. I'm a developer obsessed with building things that actually matter.<br><br>From late-night LeetCode sessions to launching full-stack apps, I love the process of creating from scratch.
+        </p>
+        <div id="scroll-hint">scroll</div>
+      </div>
+    </section>
+
+    <section class="section resume" id="resume">
+      <div class="resume-content">
+        <h2 class="section-title">Résumé</h2>
+        
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="date">Class of 2027</div>
+            <h3>Vellore Institute of Technology, Bhopal</h3>
+            <p>Bachelor of Technology</p>
+          </div>
+          
+          <div class="timeline-item">
+            <div class="date">Recent Internship</div>
+            <h3>Software Developer Intern</h3>
+            <p>— Developed an Asset Management system.<br/>— Integrated LLMs for advanced performance optimization and intelligent tracking.</p>
+          </div>
+
+          <div class="timeline-item">
+            <div class="date">Ongoing</div>
+            <h3>Competitive Programmer & Hacker</h3>
+            <p>— Active participant in collaborative Hackathons.<br/>— Consistent algorithmic problem solving and training on LeetCode.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section works-container" id="works">
+      <div class="works-sticky">
+        <h2 class="section-title dark-mode-text">PROJECTS</h2>
+        
+        <div class="horizontal-scroll" id="horizontal-scroll">
+          <!-- Project 1 -->
+          <div class="work-card">
+            <div class="work-num">01</div>
+            <h3>ChipPulse AI</h3>
+            <p class="work-sub">Physics-Aware Thermal EDA Surrogate Platform</p>
+            <p style="font-size: 0.95rem; opacity: 0.8; line-height: 1.6; margin-bottom: 25px;">
+              An interactive semiconductor floorplanning engine that replaces multi-hour numerical heat solvers with a sub-second, physics-aware AI surrogate, allowing chip designers to evaluate real-time 3D thermal hotspots, IR drops, and PPA trade-offs directly in the browser.
+            </p>
+            <div class="work-list">
+              <div class="work-row">
+                <span>Tech Stack</span>
+                <div style="display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; width: 70%;">
+                  <span class="tag">React</span><span class="tag">Three.js</span><span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">PyTorch</span>
+                </div>
+              </div>
+              <div class="work-row">
+                <span>Source</span>
+                <a href="https://github.com/harshal0508/ChipPulse-AI" target="_blank" style="text-decoration: none;"><span class="tag" style="cursor: pointer; background: #c8a96e; color: #1a1a1a; font-weight: bold;">GitHub Repository</span></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 2 -->
+          <div class="work-card">
+            <div class="work-num">02</div>
+            <h3>OmniGraph</h3>
+            <p class="work-sub">Distributed Architecture & Concurrency Vulnerability Scanner</p>
+            <p style="font-size: 0.95rem; opacity: 0.8; line-height: 1.6; margin-bottom: 25px;">
+              A static analysis engine that extracts cross-service data-access paths and infrastructure topology into directed property graphs, mathematically flagging distributed race conditions, missing locks, and TOCTOU vulnerabilities prior to production deployment.
+            </p>
+            <div class="work-list">
+              <div class="work-row">
+                <span>Tech Stack</span>
+                <div style="display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; width: 70%;">
+                  <span class="tag">Python</span><span class="tag">NetworkX</span><span class="tag">Neo4j</span><span class="tag">FastAPI</span>
+                </div>
+              </div>
+              <div class="work-row">
+                <span>Source</span>
+                <a href="https://github.com/harshal0508/OmniGraph" target="_blank" style="text-decoration: none;"><span class="tag" style="cursor: pointer; background: #c8a96e; color: #1a1a1a; font-weight: bold;">GitHub Repository</span></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 3 -->
+          <div class="work-card">
+            <div class="work-num">03</div>
+            <h3>INSTANTO247</h3>
+            <p class="work-sub">Automated Fleet & Technician Dispatch Platform</p>
+            <p style="font-size: 0.95rem; opacity: 0.8; line-height: 1.6; margin-bottom: 25px;">
+              A hyper-local marketplace platform automating the dispatch of verified technicians connecting a customer WhatsApp bot to a technician mobile app, utilizing PostgreSQL/PostGIS for concurrency-safe spatial matching.
+            </p>
+            <div class="work-list">
+              <div class="work-row">
+                <span>Tech Stack</span>
+                <div style="display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; width: 70%;">
+                  <span class="tag">Node.js</span><span class="tag">PostGIS</span><span class="tag">Firebase</span><span class="tag">React Native</span>
+                </div>
+              </div>
+              <div class="work-row">
+                <span>Source</span>
+                <a href="https://github.com/harshal0508/instanto-expert" target="_blank" style="text-decoration: none;"><span class="tag" style="cursor: pointer; background: #c8a96e; color: #1a1a1a; font-weight: bold;">GitHub Repository</span></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 4 -->
+          <div class="work-card">
+            <div class="work-num">04</div>
+            <h3>MyFleet Hisab</h3>
+            <p class="work-sub">Logistics Operations Manager</p>
+            <p style="font-size: 0.95rem; opacity: 0.8; line-height: 1.6; margin-bottom: 25px;">
+              A comprehensive mobile application built for transport owners to efficiently manage logistics operations. Track fleet vehicles, assign drivers, monitor document expiries with live photo capture, and record trip expenses with offline-persistent state.
+            </p>
+            <div class="work-list">
+              <div class="work-row">
+                <span>Tech Stack</span>
+                <div style="display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; width: 70%;">
+                  <span class="tag">React Native</span><span class="tag">Supabase</span><span class="tag">Zustand</span>
+                </div>
+              </div>
+              <div class="work-row">
+                <span>Source</span>
+                <a href="https://github.com/harshal0508/my-fleet-hisab" target="_blank" style="text-decoration: none;"><span class="tag" style="cursor: pointer; background: #c8a96e; color: #1a1a1a; font-weight: bold;">GitHub Repository</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer Section -->
+    <section class="section footer" id="contact">
+      <div class="footer-content">
+        <h2 class="footer-title">Let's build something.</h2>
+        <p class="footer-sub">Currently open for new opportunities and collaborations.</p>
+        <a href="mailto:harshaljain0508@gmail.com" class="email-btn">Get In Touch</a>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Harshal Jain.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    window.toggleHobbies = function() {
+      var dropdown = document.getElementById('hobbies-dropdown');
+      if (dropdown) {
+        dropdown.classList.toggle('active');
+      }
+    };
+    window.showSkills = function() {
+      document.getElementById('skills-modal').classList.add('active');
+    };
+    window.closeSkills = function() {
+      document.getElementById('skills-modal').classList.remove('active');
+    };
+  </script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

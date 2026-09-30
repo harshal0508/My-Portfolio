@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -45,9 +46,14 @@ scene.add(char);
 
 /* ─ LOAD SKETCHFAB MODEL ─ */
 let mixer = null;
-const loader = new GLTFLoader();
 
-loader.load('./model_assets/source/model.glb', (gltf) => {
+const dracoLoader = new DRACOLoader();
+dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
+
+const loader = new GLTFLoader();
+loader.setDRACOLoader(dracoLoader);
+
+loader.load('./model_assets/source/model-draco.glb', (gltf) => {
   const model = gltf.scene;
   
   // Calculate bounding box to automatically scale ANY model to the perfect height
@@ -94,8 +100,8 @@ loader.load('./model_assets/source/model.glb', (gltf) => {
       const percent = Math.round((xhr.loaded / xhr.total) * 100);
       progressEl.innerText = percent + '%';
     } else {
-      // Vercel compresses assets and strips Content-Length. Fallback estimate for 16MB file:
-      const estimatedTotal = 16309372;
+      // Vercel compresses assets and strips Content-Length. Fallback estimate for 7.6MB file:
+      const estimatedTotal = 7635976;
       const percent = Math.min(Math.round((xhr.loaded / estimatedTotal) * 100), 99); // Cap at 99 until done
       progressEl.innerText = percent + '%';
     }

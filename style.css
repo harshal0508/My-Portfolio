@@ -282,6 +282,12 @@ main { position: relative; z-index: 10; }
   .hero-content {
     text-align: center;
     max-width: 90vw;
+    background: rgba(92, 102, 85, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 5vh;
   }
   .hero-title {
     font-size: clamp(2.5rem, 12vw, 4rem);
@@ -290,10 +296,15 @@ main { position: relative; z-index: 10; }
     font-size: 0.95rem;
   }
   
-  /* Tuck watermark closer to edge on small screens */
+  /* Make watermark horizontal and at the top on small screens */
   .hero-watermark {
-    left: 2vw;
-    font-size: clamp(2rem, 6vh, 5rem);
+    writing-mode: horizontal-tb;
+    left: 50%;
+    top: 10vh;
+    transform: translateX(-50%);
+    font-size: clamp(2.5rem, 12vw, 4rem);
+    opacity: 0.6;
+    letter-spacing: 0.2em;
   }
 
   /* Move side menu slightly closer to edge */

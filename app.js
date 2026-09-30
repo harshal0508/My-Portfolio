@@ -10,10 +10,11 @@ gsap.registerPlugin(ScrollTrigger);
 const canvas = document.getElementById('webgl-canvas');
 const W = window.innerWidth, H = window.innerHeight;
 const scene = new THREE.Scene();
+const isMobile = W <= 768;
 
 // Camera setup
 const camera = new THREE.PerspectiveCamera(40, W / H, 0.1, 60);
-camera.position.set(0, 0.5, 8); // Start further back to fit full body
+camera.position.set(0, 0.5, isMobile ? 13 : 8); // Start much further back on mobile so character fits
 
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -41,7 +42,7 @@ scene.add(fillLight);
 
 /* ─ CHARACTER GROUP ─ */
 const char = new THREE.Group();
-char.position.set(-1.2, -1.5, 0); // Shift left and down so feet are lower
+char.position.set(isMobile ? 0 : -1.2, -1.5, 0); // Center on mobile, shift left on desktop
 scene.add(char);
 
 /* ─ LOAD SKETCHFAB MODEL ─ */
@@ -150,7 +151,7 @@ gsap.to(camera.position, {
 // Shift character from the left towards the center as the camera zooms
 gsap.to(char.position, {
   scrollTrigger: { trigger: "#resume", start: "top bottom", end: "top 20%", scrub: true },
-  x: -0.4, // Move slightly towards center-left
+  x: isMobile ? 0 : -0.4, // Move slightly towards center-left on desktop, stay centered on mobile
 });
 
 // 3. Reveal Stickers around the Face

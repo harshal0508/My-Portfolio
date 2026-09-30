@@ -85,32 +85,6 @@ loader.load('./model_assets/source/model-draco.glb', (gltf) => {
     mixer = new THREE.AnimationMixer(model);
     mixer.clipAction(gltf.animations[0]).play();
   }
-
-  // Gracefully hide loader once ready
-  setTimeout(() => {
-    const loaderEl = document.getElementById('loader');
-    if (loaderEl) loaderEl.classList.add('hidden');
-  }, 600); 
-
-}, (xhr) => {
-  // Update percentage while loading
-  const progressEl = document.getElementById('loader-progress');
-  if (progressEl) {
-    if (xhr.lengthComputable) {
-      const percent = Math.round((xhr.loaded / xhr.total) * 100);
-      progressEl.innerText = percent + '%';
-    } else {
-      // Vercel compresses assets and strips Content-Length. Fallback estimate for 7.6MB file:
-      const estimatedTotal = 7635976;
-      const percent = Math.min(Math.round((xhr.loaded / estimatedTotal) * 100), 99); // Cap at 99 until done
-      progressEl.innerText = percent + '%';
-    }
-  }
-}, (error) => {
-  console.error("Error loading 3D model:", error);
-  // Hide loader even if it fails so site is usable
-  const loaderEl = document.getElementById('loader');
-  if (loaderEl) loaderEl.classList.add('hidden');
 });
 
 /* ══════════════════════════════════
